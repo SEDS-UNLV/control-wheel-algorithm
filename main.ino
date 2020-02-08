@@ -10,6 +10,13 @@
 // 480 ticks = 1 rev
 
 
+
+// RING CALCULATIONS --------------------------------------------------------
+// TORQUE                 (ring) = 0.049Nm
+// INERTIA                (ring) = 0.0002447217kgm^2
+// ANGULAR ACCELERATION   (ring) = 200.227442029 rad/s^2
+// RING CALCULATIONS --------------------------------------------------------
+
 MPU9250_DMP imu;
 float degrees = 0;
 
@@ -72,51 +79,6 @@ void loop() {
     
     if (calibrated) {
       if (calibration_sequence) {
-        for (int i = 0; i < 150; i++) {
-          motor.setSpeed(i);
-          motor.forward();
-          delay(20);  
-        }
-        delay(500);
-        for (int i = 150; i > 0; i--) {
-          motor.setSpeed(i);
-          motor.forward();
-          delay(10);  
-        }
-        delay(500);
-
-        for (int i = 0; i < 150; i++) {
-          motor.setSpeed(i);
-          motor.backward();
-          delay(20);  
-        }
-        delay(500);
-        for (int i = 150; i > 0; i--) {
-          motor.setSpeed(i);
-          motor.backward();
-          delay(10);  
-        }
-        delay(500);
-
-        motor.setSpeed(255);
-        motor.forward();
-        delay(1000);
-        for (int i = 255; i > 0; i--) {
-          motor.setSpeed(i);
-          motor.forward();
-          delay(10);  
-        }
-        
-        delay(1000);
-        
-//        motor.setSpeed(100);
-//        motor.forward();
-//        delay(300);
-//        motor.stop();
-//        motor.setSpeed(100);
-//        motor.backward();
-//        delay(300);
-        
         calibration_sequence = false;
       }
       if (imu.fifoAvailable() ) {
